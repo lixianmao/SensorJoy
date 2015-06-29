@@ -10,16 +10,12 @@ namespace SensorJoy
     class PortHelper
     {
         private SerialPort com;
-        private ComboBox cb;
+        public Boolean isComConn;
+        public Boolean isComOpen;
         
         public PortHelper(SerialPort com)
         {
             this.com = com;
-        }
-
-        public void setComboBox(ComboBox cb)
-        {
-            this.cb = cb;
         }
 
         public void checkSerialPort()
@@ -27,18 +23,18 @@ namespace SensorJoy
             String[] ports = SerialPort.GetPortNames();
             if(ports == null || ports.Length == 0)
             {
-                //add code here
+                isComConn = false;
             }
-            foreach(String port in ports)
+            else
             {
-                cb.Items.Add(port);
-                cb.SelectedIndex = 0;
+                isComConn = true;
+                setPortInfo(ports[0]);
             }
         }
 
-        public void setPortInfo()
+        public void setPortInfo(string portName)
         {
-            com.PortName = cb.Text;
+            com.PortName = portName;
             com.BaudRate = 9600;
             com.Parity = Parity.None;
             com.StopBits = StopBits.One;
@@ -50,13 +46,15 @@ namespace SensorJoy
             int n = com.BytesToRead;
             byte[] buf = new byte[n];
             com.Read(buf, 0, n);
-            return buf[0];
+            byte data = (byte)(buf[0] & 0x0F);
+            return data;
         }
 
         public void open()
         {
             if(!com.IsOpen)
             {
+                isComOpen = true;
                 com.Open();
             }
         }
@@ -65,9 +63,9 @@ namespace SensorJoy
         {
             if(com.IsOpen)
             {
-                com.Close();
+                isComOpen = false;
+                com.Close();               
             }
         }
-
     }
 }

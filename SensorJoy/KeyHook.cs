@@ -31,26 +31,17 @@ namespace SensorJoy
                 case "UP":
                     wCode = 38;
                     break;
-                case "DOWN":
-                    wCode = 40;
+                case "X":
+                    wCode = 88;
                     break;
-                case "W":
-                    wCode = 87;
-                    break;
-                case "A":
-                    wCode = 65;
+                case "Q":
+                    wCode = 81;
                     break;
                 case "S":
                     wCode = 83;
                     break;
-                case "D":
-                    wCode = 68;
-                    break;
-                case "SHIFT":
-                    wCode = 16;
-                    break;
-                case "SPACE":
-                    wCode = 32;
+                case "C":
+                    wCode = 67;
                     break;
                 default:
                     break;

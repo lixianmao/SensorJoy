@@ -8,6 +8,8 @@ namespace SensorJoy
     internal sealed class Global
     {
 
+        
+
         [DllImport("user32.dll", EntryPoint = "keybd_event")]
         public static extern void keybd_event(
             byte bVk, //虚拟键值
